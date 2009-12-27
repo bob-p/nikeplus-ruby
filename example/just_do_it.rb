@@ -19,7 +19,14 @@ def generate_rss(builder, rss_title, rss_link, items)
 end
 
 # Authenticate to access your private Nike+ user info
-me = NikePlus.new('my@email.com', 'secretpassword')
+me = NikePlus::Session.new('my@email.com', 'secretpassword')
+my_runs = me.runs
+builder = Builder::XmlMarkup.new
+
+puts generate_rss(builder, "My Recent Runs", "http://petrock.org/runs.rss", me.runs)
+
+# Or use your public feed
+me = NikePlus::Feed.new(00000000) #Nike+ id
 my_runs = me.runs
 builder = Builder::XmlMarkup.new
 
